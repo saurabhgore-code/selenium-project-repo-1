@@ -1,5 +1,5 @@
 podTemplate(containers: [
-    containerTemplate(name: 'selenium-server', image: ‘markhobson/maven-chrome:jdk-11’, command: 'mvn', args: 'clean', install’),
+    containerTemplate(name: 'selenium-server', image: ‘(markhobson/maven-chrome):jdk-11’, command: 'mvn', args: 'clean', install’),
   ] , volumes: [
         persistentVolumeClaim(mountPath: ‘/usr/src’, claimName: ‘selenium-source-pvc’, readOnly: false)
                   ]

@@ -1,13 +1,13 @@
 podTemplate(containers: [
-  containerTemplate(name: 'selenium-server', image: "(markhobson/maven-chrome:jdk-11)" , command: 'mvn', args: 'clean', 'install')
+  containerTemplate(name: 'maven', image: 'maven:3.8.1-jdk-8', command: 'sleep', args: '99d')
   ], volumes: [
-  persistentVolumeClaim(mountPath: '/usr/src', claimName: 'selenium-source-pvc', readOnly: false)
+  persistentVolumeClaim(mountPath: '/root/.m2/repository', claimName: 'selenium-conf-pvc', readOnly: false)
   ]) {
 
   node(POD_LABEL) {
     stage('Build a Maven project') {
-      git 'https://github.com/saurabhgore-code/selenium-project-repo-1.git'
-      container('selenium-server') {
+      git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+      container('maven') {
         sh 'mvn -B -ntp clean package -DskipTests'
       }
     }

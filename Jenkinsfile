@@ -7,7 +7,7 @@ podTemplate(containers: [
   
 node(POD_LABEL) {
         stage('Get a Maven project') {
-            git https://github.com/saurabhgore-code/selenium-project-repo-1.git
+            git 'https://github.com/saurabhgore-code/selenium-project-repo-1.git'
             container('selenium-server') {
                 stage('run maven goals') {
                     sh 'mvn -B -ntp clean install' 

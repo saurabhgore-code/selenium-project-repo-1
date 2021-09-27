@@ -1,5 +1,5 @@
 podTemplate(containers: [
-    containerTemplate(name: 'selenium-server', image: markhobson/maven-chrome:jdk-11, command: 'sleep', args: '99')
+    containerTemplate(name: 'selenium-server', image: 'markhobson/maven-chrome:jdk-11', command: 'sleep', args: '99')
   ]) {
 
     node(POD_LABEL) {

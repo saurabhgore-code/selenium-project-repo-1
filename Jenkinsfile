@@ -4,12 +4,17 @@ podTemplate(containers: [
 
     node(POD_LABEL) {
         stage('Get a Maven project') {
-            git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+            git 'https://github.com/saurabhgore-code/selenium-project-repo-1.git'
             container('maven') {
                 stage('Build a Maven project') {
                     sh 'mvn -B -ntp clean install'
                 }
             }
-        }
+       }
+    
     }
-} 
+    
+}
+    
+    
+   

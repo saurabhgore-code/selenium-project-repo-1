@@ -1,15 +1,15 @@
-podTemplate(containers: [
-    containerTemplate(name: 'selenium-server', image: 'markhobson/maven-chrome:jdk-11', command: 'sleep', args: '99d')
-  ]) {
-
-    node(POD_LABEL) {
-        stage('Get a Maven project') {
-            git 'https://github.com/saurabhgore-code/selenium-project-repo-1.git'
-            container('maven') {
-                stage('Build a Maven project') {
-                    sh 'mvn -B -ntp clean install'
-                }
-            }
-        }
+pipeline {
+  agent {
+    kubernetes {
+      label 'pod-label'  // all your pods will be named with this prefix, followed by a unique id
+      idleMinutes 5  // how long the pod will live after no jobs have run on it
+      yamlFile 'selenium-maven-pod.yml'  // path to the pod definition relative to the root of our project 
+      defaultContainer 'maven'  // define a default container if more than a few stages use it, will default to jnlp container
     }
-}
+  }
+  stages {
+    stage('Build') {
+      steps {  // no container directive is needed as the maven container is the default
+        sh "mvn clean install"   
+      }
+    }
